@@ -53,7 +53,7 @@ enum custom_keycodes {
 #define T_SPACE LT(NAV, KC_SPC)
 #define T_TAB  LT(MOUSE, KC_TAB)
 
-#define T_DEL LT(SYM, KC_DEL)
+#define T_DEL LT(FUN, KC_DEL)
 #define T_BSPC LT(NUM, KC_BSPC)
 #define T_ENT LT(SYM, KC_ENT)
 
