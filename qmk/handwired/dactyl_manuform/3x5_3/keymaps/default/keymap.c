@@ -139,6 +139,7 @@ enum combo_events {
   CAPS_COMBO,
   CAPS_COMBO2,
   QWERTY_COMBO,
+  QWERTY_COMBO2,
   COLEMAK_COMBO,
   GAMING_COMBO,
   GAMING_COMBO2,
@@ -147,15 +148,17 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM caps_combo[] = {HOME_T, HOME_N, COMBO_END};
 const uint16_t PROGMEM caps_combo2[] = {HOME_F, HOME_J, COMBO_END};
-const uint16_t PROGMEM qwerty_combo[] = {HOME_A, T_SPACE, T_BSPC, HOME_I, COMBO_END};
-const uint16_t PROGMEM colemak_combo[] = {HOME_A, T_SPACE, T_BSPC, HOME_QU, COMBO_END};
-const uint16_t PROGMEM gaming_combo[] = {HOME_A, T_SPACE, T_BSPC, HOME_E, COMBO_END};
-const uint16_t PROGMEM gaming_combo2[] = {HOME_A, T_SPACE, T_BSPC, HOME_K, COMBO_END};
+const uint16_t PROGMEM qwerty_combo[] = {T_BSPC, HOME_I, COMBO_END};
+const uint16_t PROGMEM qwerty_combo2[] = {T_BSPC, HOME_L, COMBO_END};
+const uint16_t PROGMEM colemak_combo[] = {T_BSPC, HOME_QU, COMBO_END};
+const uint16_t PROGMEM gaming_combo[] = {T_BSPC, HOME_E, COMBO_END};
+const uint16_t PROGMEM gaming_combo2[] = {T_BSPC, HOME_K, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO_ACTION(caps_combo),
     [CAPS_COMBO2] = COMBO_ACTION(caps_combo2),
     [QWERTY_COMBO] = COMBO_ACTION(qwerty_combo),
+    [QWERTY_COMBO2] = COMBO_ACTION(qwerty_combo2),
     [COLEMAK_COMBO] = COMBO_ACTION(colemak_combo),
     [GAMING_COMBO] = COMBO_ACTION(gaming_combo),
     [GAMING_COMBO2] = COMBO_ACTION(gaming_combo2),
@@ -179,12 +182,22 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case QWERTY_COMBO:
       if (pressed) {
         layer_off(BASE);
+        layer_off(GAMING);
         layer_on(QWERTY);
       }
       break; 
 
+    case QWERTY_COMBO2:
+      if (pressed) {
+        layer_off(BASE);
+        layer_off(GAMING);
+        layer_on(QWERTY);
+      }
+      break; 
+    
     case COLEMAK_COMBO:
       if (pressed) {
+      	layer_off(GAMING);
         layer_off(QWERTY);
         layer_on(BASE);
       }
@@ -192,7 +205,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
     case GAMING_COMBO:
       if (pressed) {
-        layer_off(BASE);
+        layer_off(QWERTY);
         layer_on(GAMING);
       }
       break;   
