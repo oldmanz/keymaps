@@ -18,7 +18,7 @@
 
 #ifdef VIA_ENABLE
 /* VIA configuration. */
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 9
 #endif // VIA_ENABLE
 
 /* Disable unused features. */
@@ -87,7 +87,7 @@
 // Automatically enable the pointer layer when moving the trackball.  See also:
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS`
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD`
-// #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+//#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #endif // POINTING_DEVICE_ENABLE
 
 /* RGB Matrix. */

@@ -23,6 +23,8 @@
 
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
+    LAYER_QWERTY,
+    LAYER_GAMING,
     LAYER_FUNCTION,
     LAYER_NAVIGATION,
     LAYER_MEDIA,
@@ -53,6 +55,10 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
+#define TG_BASE DF(LAYER_BASE)
+#define TG_QWRT DF(LAYER_QWERTY)
+#define TG_GAME DF(LAYER_GAMING)
+
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
 #    define DPI_MOD KC_NO
@@ -69,11 +75,18 @@ static uint16_t auto_pointer_layer_timer = 0;
                       ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM
 
 /** \brief QWERTY layout (3 rows, 10 columns). */
-#define LAYOUT_LAYER_BASE_QWERTY                                                              \
+#define LAYOUT_LAYER_QWERTY                                                                   \
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, \
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, \
                       ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM
+
+/** \brief GAMING layout (3 rows, 10 columns). */
+#define LAYOUT_LAYER_GAMING                                                                   \
+     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O, \
+    KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, \
+    KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_BTN1, KC_BTN2,    KC_N,    KC_M, \
+                      ESC_MED,  KC_SPC, DRGSCRL, ENT_SYM, BSP_NUM
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -145,7 +158,7 @@ static uint16_t auto_pointer_layer_timer = 0;
  * `KC_DOT` is duplicated from the base layer.
  */
 #define LAYOUT_LAYER_NUMERAL                                                                  \
-    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC, TG_BASE, TG_QWRT , TG_GAME, XXXXXXX, XXXXXXX, \
     KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL, ______________HOME_ROW_GACS_R______________, \
      KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS, _______________DEAD_HALF_ROW_______________, \
                        KC_DOT,    KC_0, KC_MINS, XXXXXXX, _______
@@ -214,6 +227,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(
     POINTER_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))
   ),
+  [LAYER_QWERTY] = LAYOUT_wrapper(
+    POINTER_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_QWERTY))
+  ),
+  [LAYER_GAMING] = LAYOUT_wrapper(LAYOUT_LAYER_GAMING),
   [LAYER_FUNCTION] = LAYOUT_wrapper(LAYOUT_LAYER_FUNCTION),
   [LAYER_NAVIGATION] = LAYOUT_wrapper(LAYOUT_LAYER_NAVIGATION),
   [LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
@@ -277,8 +294,8 @@ void shutdown_user(void) {
 }
 
 
-const uint16_t PROGMEM caps_combo[] = {KC_D, KC_H, COMBO_END};
-const uint16_t PROGMEM caps_combo2[] = {KC_G, KC_H, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {LSFT_T(KC_T), RSFT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM caps_combo2[] = {LSFT_T(KC_F), RSFT_T(KC_J), COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(caps_combo, CAPS_WORD),
     COMBO(caps_combo2, CAPS_WORD),
